@@ -23,7 +23,10 @@ if(!isProduction) {
   app.use(errorHandler());
 }
 
-mongoose.connect('mongodb://localhost/lightblog');
+mongoose.connect('mongodb://localhost/lightblog', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 mongoose.set('debug', true);
 
 // Add models

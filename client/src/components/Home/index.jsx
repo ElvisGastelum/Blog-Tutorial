@@ -4,6 +4,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 
 import { Form } from '../../components/Article';
+const localhost = require('os').hostname().toLowerCase();
 
 class Home extends React.Component {
   constructor(props) {
@@ -16,14 +17,14 @@ class Home extends React.Component {
   componentDidMount() {
     const { onLoad } = this.props;
 
-    axios('http://localhost:8000/api/articles')
+    axios(`http://${localhost}:8000/api/articles`)
       .then((res) => onLoad(res.data));
   }
 
   handleDelete(id) {
     const { onDelete } = this.props;
 
-    return axios.delete(`http://localhost:8000/api/articles/${id}`)
+    return axios.delete(`http://${localhost}:8000/api/articles${id}`)
       .then(() => onDelete(id));
   }
 
@@ -48,7 +49,7 @@ class Home extends React.Component {
           <div className="col-12 col-lg-6 offset-lg-3">
             {articles.map((article) => {
               return (
-                <div className="card my-3">
+                <div className="card my-3" key={article._id}>
                   <div className="card-header">
                     {article.title}
                   </div>
